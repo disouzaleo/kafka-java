@@ -13,24 +13,28 @@ import java.util.concurrent.ExecutionException;
 public class NewOrderMain {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
+
         var producer = new KafkaProducer<String, String>(properties());
-        var key = UUID.randomUUID().toString();
-        var value = key + ", 2378947, 900.50, 8977080";
-        var record = new ProducerRecord<>("ECOMMERCE_NEW_ORDER", key, value);
-        Callback callback = (data, ex) -> {
-            if(ex != null){
-                ex.printStackTrace();
-                return;
-            }
-            System.out.println("Sucesso enviando: " + data.topic() + "::: partition " + data.partition() + "/ offset " + data.offset() + "/ timestamp " + data.timestamp());
-        };
 
-        var email = "Thanks for trust us! We are now processing your order!";
+        for(var i=0; i < 20; i++){
+            var key = UUID.randomUUID().toString();
+            var value = key + ", 2378947, 900.50, 8977080";
+            var record = new ProducerRecord<>("ECOMMERCE_NEW_ORDER", key, value);
+            Callback callback = (data, ex) -> {
+                if(ex != null){
+                    ex.printStackTrace();
+                    return;
+                }
+                System.out.println("Sucesso enviando: " + data.topic() + "::: partition " + data.partition() + "/ offset " + data.offset() + "/ timestamp " + data.timestamp());
+            };
 
-        var emailRecord = new ProducerRecord<>("ECOMMERCE_SEND_EMAIL", key, email);
+            var email = "Thanks for trust us! We are now processing your order!";
 
-        producer.send(record, callback).get();
-        producer.send(emailRecord, callback).get();
+            var emailRecord = new ProducerRecord<>("ECOMMERCE_SEND_EMAIL", key, email);
+
+            producer.send(record, callback).get();
+            producer.send(emailRecord, callback).get();
+        }
     }
 
     private static Properties properties() {
