@@ -1,5 +1,6 @@
-package br.com.cleancoding.ecommerce;
+package br.com.cleancoding.ecommerce.services;
 
+import br.com.cleancoding.ecommerce.KafkaDispatcher;
 import br.com.cleancoding.ecommerce.domain.Order;
 
 import java.math.BigDecimal;

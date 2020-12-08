@@ -2,13 +2,10 @@ package br.com.cleancoding.ecommerce.services;
 
 import br.com.cleancoding.ecommerce.ConsumerFunction;
 import br.com.cleancoding.ecommerce.GsonDeserializer;
-import br.com.cleancoding.ecommerce.GsonSerializer;
-import br.com.cleancoding.ecommerce.domain.Order;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
-import java.io.IOException;
 import java.time.Duration;
 import java.util.Collections;
 import java.util.Map;
