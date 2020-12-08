@@ -20,7 +20,7 @@ public class NewOrderMain {
 
             var order = new Order(userId, orderId, amount);
 
-            var email = "Thanks for trust us! We are now processing your order!";
+            var email = "We are preparing your order, Thanks for trust us! We are now processing your order!";
 
             orderDispatcher.send("ECOMMERCE_NEW_ORDER", userId, order);
             emailDispatcher.send("ECOMMERCE_SEND_EMAIL", userId, email);

@@ -1,6 +1,10 @@
-package br.com.cleancoding.ecommerce;
+package br.com.cleancoding.ecommerce.services;
 
+import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.common.serialization.StringDeserializer;
+
+import java.util.Map;
 
 public class EmailService {
     public static void main(String[] args) {
@@ -8,7 +12,9 @@ public class EmailService {
         var emailService = new EmailService();
 
         var service = new KafkaService(EmailService.class.getSimpleName().toString(), "ECOMMERCE_SEND_EMAIL",
-                emailService::parse);
+                emailService::parse,
+                String.class,
+                Map.of(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName()));
 
         service.run();
     }
